@@ -25,3 +25,9 @@ def distance(p, q, r):
     dx = (q.x - p.x)
     top = abs(dy*r.x - dx*r.y + q.x*p.y - q.y*p.x)
     return top / math.sqrt(dx*dx + dy*dy)
+
+
+def distance2(a, b):
+    dx = a.x - b.x
+    dy = a.y - b.y
+    return math.sqrt(dx*dx + dy*dy)

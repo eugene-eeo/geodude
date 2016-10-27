@@ -1,5 +1,5 @@
 import math
-from geodude.utils import distance, side, Side
+from geodude.utils import distance, side, Side, distance2
 
 
 def _findhull(points, A, B):
@@ -33,12 +33,6 @@ def quickhull(points):
     yield r
 
 
-def _dist(a, b):
-    dx = a.x - b.x
-    dy = a.y - b.y
-    return math.sqrt(dx*dx + dy*dy)
-
-
 def gift_wrapping(points):
     A = min(points)
     I = A  # initial endpoint
@@ -48,7 +42,7 @@ def gift_wrapping(points):
         for p in points:
             s = side(A, end, p)
             if end == A or s == Side.left or \
-                    (s == Side.along and _dist(A, p) > _dist(A, end)):
+                    (s == Side.along and distance2(A, p) > distance2(A, end)):
                 end = p
         if end == I:
             break
