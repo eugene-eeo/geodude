@@ -37,7 +37,6 @@ def test_common_quickhull():
 
 
 def bruteforce_hull(points):
-    hull = set()
     for p in points:
         for q in points:
             valid = True
@@ -50,9 +49,7 @@ def bruteforce_hull(points):
                     valid = False
                     break
             if valid:
-                hull.add(p)
-                hull.add(q)
-    return hull
+                yield (p, q)
 
 
 @given(lists(
@@ -66,7 +63,9 @@ def test_bruteforce_hull(S):
         gift_wrapping,
     ]
     points = [Point(*p) for p in S]
-    vertices = bruteforce_hull(points)
-    a, b, c = [set(f(points)) for f in IMPLS]
-    assert a == b == c
-    assert a.issubset(vertices)
+    A, B, C = [set(f(points)) for f in IMPLS]
+    assert A == B == C
+    # for each edge [a,b] in the bruteforced hull, there must be a
+    # point p in the calculated hull such that a,b,p are collinear.
+    for (a, b) in bruteforce_hull(points):
+        assert any(side(a, b, p) == Side.along for p in A)
