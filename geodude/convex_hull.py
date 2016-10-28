@@ -1,4 +1,3 @@
-import math
 from geodude.utils import distance, side, Side, distance2
 
 
@@ -49,18 +48,20 @@ def gift_wrapping(points):
         A = end
 
 
+def _until_all_right(S):
+    H = [S[0], S[1]]
+    for p in S[2:]:
+        H.append(p)
+        while len(H) > 2 and side(H[-3], H[-2], H[-1]) != Side.right:
+            del H[-2]
+    return H
+
+
 def graham_scan(points):
     S = sorted(points)
-    U = [S[0], S[1]]
-    for p in S[2:]:
-        U.append(p)
-        while len(U) > 2 and side(U[-3], U[-2], U[-1]) != Side.right:
-            del U[-2]
-    L = [S[-1], S[-2]]
-    for p in reversed(S[:-2]):
-        L.append(p)
-        while len(L) > 2 and side(L[-3], L[-2], L[-1]) != Side.right:
-            del L[-2]
-    del L[0]
-    del L[-1]
-    return U + L
+    upper = _until_all_right(S)
+    S.reverse()
+    lower = _until_all_right(S)
+    del lower[0]
+    del lower[-1]
+    return upper + lower
