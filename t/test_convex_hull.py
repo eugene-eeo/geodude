@@ -63,9 +63,9 @@ def test_bruteforce_hull(S):
         gift_wrapping,
     ]
     points = [Point(*p) for p in S]
-    A, B, C = [set(f(points)) for f in IMPLS]
+    A, B, C = (set(f(points)) for f in IMPLS)
     assert A == B == C
     # for each edge [a,b] in the bruteforced hull, there must be a
     # point p in the calculated hull such that a,b,p are collinear.
-    for (a, b) in bruteforce_hull(points):
-        assert any(side(a, b, p) == Side.along for p in A)
+    for p, q in bruteforce_hull(points):
+        assert any(side(p, q, r) == Side.along for r in A)
