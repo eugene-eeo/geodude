@@ -1,4 +1,4 @@
-from geodude.utils import distance, side, Side, distance2
+from .utils import distance, side, Side, distance2
 
 
 def _findhull(points, A, B):
