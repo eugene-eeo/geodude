@@ -1,4 +1,3 @@
-import math
 from collections import namedtuple
 from enum import Enum
 
@@ -24,10 +23,10 @@ def distance(p, q, r):
     dy = (q.y - p.y)
     dx = (q.x - p.x)
     top = abs(dy*r.x - dx*r.y + q.x*p.y - q.y*p.x)
-    return top / math.sqrt(dx*dx + dy*dy)
+    return top / (dx*dx + dy*dy)
 
 
 def distance2(a, b):
     dx = a.x - b.x
     dy = a.y - b.y
-    return math.sqrt(dx*dx + dy*dy)
+    return dx*dx + dy*dy

@@ -53,8 +53,8 @@ def bruteforce_hull(points):
 
 
 @given(lists(
-    tuples(integers(min_value=0, max_value=10), integers(min_value=0, max_value=10)),
-    min_size=3, max_size=10, unique=True
+    tuples(integers(min_value=0, max_value=100), integers(min_value=0, max_value=100)),
+    min_size=3, max_size=50, unique=True
     ))
 def test_bruteforce_hull(S):
     IMPLS = [
