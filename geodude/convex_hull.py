@@ -1,10 +1,10 @@
-from .utils import distance, side, Side, distance2
+from .utils import line_segment_distance, side, Side, distance
 
 
 def _findhull(points, A, B):
     if not points:
         return
-    M = max(points, key=lambda p: distance(A, B, p))
+    M = max(points, key=lambda p: line_segment_distance(A, B, p))
     yield M
     L = []
     R = []
@@ -40,8 +40,9 @@ def gift_wrapping(points):
         end = points[0]
         for p in points:
             s = side(A, end, p)
-            if end == A or s == Side.left or \
-                    (s == Side.along and distance2(A, p) > distance2(A, end)):
+            if end == A or \
+                    s == Side.left or \
+                    (s == Side.along and distance(A, p) > distance(A, end)):
                 end = p
         if end == I:
             break

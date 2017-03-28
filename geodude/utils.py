@@ -19,14 +19,14 @@ def side(p, q, r):
     return Side.left
 
 
-def distance(p, q, r):
+def line_segment_distance(p, q, r):
     dy = (q.y - p.y)
     dx = (q.x - p.x)
     top = abs(dy*r.x - dx*r.y + q.x*p.y - q.y*p.x)
     return top / (dx*dx + dy*dy)
 
 
-def distance2(a, b):
+def distance(a, b):
     dx = a.x - b.x
     dy = a.y - b.y
     return dx*dx + dy*dy
